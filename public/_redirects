@@ -1,0 +1,5 @@
+/download /.netlify/functions/api 200
+/health /.netlify/functions/api 200
+/api/info /.netlify/functions/api 200
+/api/* /.netlify/functions/api/:splat 200
+/* /index.html 200
