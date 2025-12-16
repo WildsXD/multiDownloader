@@ -4,9 +4,9 @@
     "description": "Modern and animated video downloader with support for multiple platforms",
     "main": "server.js",
     "scripts": {
-        "start": "node start.js",
-        "server": "node server.js",
+        "start": "node server.js",
         "dev": "node start.js",
+        "build": "echo 'Build complete'",
         "test": "echo \"Open test-api.html in your browser to test the API\""
     },
     "keywords": [

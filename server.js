@@ -16,36 +16,8 @@ console.log(`[INIT] Starting Video Downloader Server...`);
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Serve downloaded files
-app.get('/download/:filename', (req, res) => {
-    const filename = req.params.filename;
-    const filePath = path.join(__dirname, 'downloads', filename);
-
-    console.log(`[${new Date().toISOString()}] 📥 Download request: ${filename}`);
-
-    if (fs.existsSync(filePath)) {
-        const stats = fs.statSync(filePath);
-
-        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-        res.setHeader('Content-Length', stats.size);
-        res.setHeader('Content-Type', 'video/mp4');
-
-        const stream = fs.createReadStream(filePath);
-        stream.pipe(res);
-
-        stream.on('end', () => {
-            console.log(`[${new Date().toISOString()}] ✅ Download completed: ${filename}`);
-        });
-
-        stream.on('error', (error) => {
-            console.error(`[${new Date().toISOString()}] ❌ Download error: ${error.message}`);
-            res.status(500).json({ success: false, message: 'Download failed' });
-        });
-    } else {
-        console.error(`[${new Date().toISOString()}] ❌ File not found: ${filename}`);
-        res.status(404).json({ success: false, message: 'File not found' });
-    }
-});
+// Note: File serving removed for Vercel compatibility
+// Vercel serverless functions don't support file system operations
 
 app.post('/download', async (req, res) => {
     const { url, platform, format, quality } = req.body;
@@ -478,8 +450,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`
 ╔═══════════════════════════════════════════════╗
 ║   🎬 Multi-Platform Video Downloader          ║
 ║   ✅ Server: http://localhost:${port}            ║
@@ -487,15 +461,19 @@ app.listen(port, () => {
 ║   🌐 Platforms: YouTube, TikTok, Instagram    ║
 ║   🎵 Formats: MP3, 144p-1080p (YouTube)       ║
 ╚═══════════════════════════════════════════════╝
-    `);
+        `);
 
-    console.log(`
-🎉 Multi-platform downloads
+        console.log(`
+🎉 Multi-platform downloads powered by NekoLabs API!
 📱 YouTube: Multiple format support (MP3 audio + 144p to 1080p video)
 🎵 TikTok: Direct video downloads
 📸 Instagram: Photos and videos
 📘 Facebook: Video content
 🔴 RedNote: Social media content
 🔄 Simple error handling with clear messages
-    `);
-});
+        `);
+    });
+}
+
+// Export for Vercel
+module.exports = app;

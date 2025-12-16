@@ -1,0 +1,6 @@
+node_modules
+.env
+downloads
+test-*.js
+*.md
+start.js
