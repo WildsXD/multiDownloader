@@ -159,12 +159,6 @@ The server automatically:
 - Handles CORS for frontend requests
 - Provides error handling and logging
 
-## 🌐 API Integration
-
-This project uses **NekoLabs API** for video processing:
-- **YouTube API**: `https://api.nekolabs.web.id/downloader/youtube/v1`
-- **AIO API**: `https://api.nekolabs.web.id/downloader/aio/v1` (TikTok, Instagram, Facebook, RedNote)
-
 ## 📱 Frontend Features
 
 ### Animations & Effects
@@ -180,22 +174,6 @@ This project uses **NekoLabs API** for video processing:
 - **User Suggestions**: Helpful tips for resolving issues
 - **Toast Notifications**: Non-intrusive status updates
 
-## 🧪 Testing
-
-### Run Tests
-```bash
-# Test all platforms
-node test-all-platforms.js
-
-# Test specific RedNote URL
-node test-rednote-specific.js
-
-# Test simple fallback system
-node test-simple-fallback.js
-
-# Test NekoLabs APIs
-node test-nekolabs.js
-```
 
 ### Manual Testing
 1. Start the server: `npm start`
@@ -333,6 +311,7 @@ If you encounter any issues or have questions:
 ## 🎯 Roadmap
 
 ### Upcoming Features
+- [ ] Update performance
 - [ ] Batch download support
 - [ ] Download history
 - [ ] Custom quality selection for all platforms
